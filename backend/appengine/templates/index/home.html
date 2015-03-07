@@ -1,0 +1,18 @@
+{% extends 'base/base.html'%}
+{% block body %}
+    {{ csrf_input() }}
+    {% if name=='Samara' %}
+        {{ form_input('Nome','nome','Samara','Nome é Obrigatório') }}
+        {{ form_input('Nome','nome','Samara','') }}
+    {% elif name=='R' %}
+            R
+    {%  else %}
+            else
+    {% endif %}
+    <ul>
+    {% for  p in pessoas %}
+        <li>{{ p.nome }} - {{ p.sobrenome }}</li>
+
+    {% endfor %}
+    </ul>
+{% endblock %}
