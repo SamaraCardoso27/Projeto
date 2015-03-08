@@ -33,8 +33,8 @@ handlers:
   upload: static/robots.txt
 
 - url: /favicon\.ico
-  static_files: static/img/favicon.ico
-  upload: static/img/favicon.ico
+  static_files: static/image/favicon.ico
+  upload: static/image/favicon.ico
 
 - url: /static(.*)
   static_files: static\1

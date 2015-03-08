@@ -86,12 +86,10 @@
             </button>
             <a href="/" class="navbar-brand" style="color: #58B1C3;margin-top: -3px;">e-Makeup</a>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+        <div class="navbar-collapse collapse" style="background: rgb(34, 34, 34);overflow: hidden;">
+            <ul class="nav navbar-nav" >
                 {% macro select_tab(tab='') %}
-                    <li {{ 'class=active' if tab=='BLOG' }}><a href="/blog" class="navbar-li">{% trans %}Blog{% endtrans %}</a></li>
-                    <li {{ 'class=active' if tab=='GALLERY' }}><a href="/gallery">{% trans %}Galeria{% endtrans %}</a></li>
-                    <li {{ 'class=active' if tab=='CONTACT' }}><a href="/contact">{% trans %}Contato{% endtrans %}</a></li>
+
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a></li>
                     {% endif %}
