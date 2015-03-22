@@ -1,0 +1,48 @@
+{% extends 'contacts/contact_base.html' %}
+{% block body %}
+    {% set contact=contact or None %}
+    {% set errors=errors or None %}
+   <div class="jumbotron" style="background: url('/static/image/abstract_color04.jpg');margin-top: 50px;height: 100px;">
+      <div class="container">
+         <h2 style=" color: rgb(255, 255, 255);font-size: 26px;text-shadow: rgba(0, 0, 0, 0.4) 2px 0px 3px;margin-top: -10px;">Contato</h2>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <form action="{{ save_path }}" method="post" role="form">
+                                                        <div class="container">
+                                  <div class="row">
+                                    <div class="col-md-5">
+                                     {{ form_input(_('* Name'),'name',contact.name,errors.name) }}
+                                    </div>
+                                    <div class="col-md-5">
+                                     {{ form_input(_('* Email'),'email',contact.email,errors.email) }}
+                                   </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-10" style="height: 350px;">
+                                    {{ form_input(_('* Messagem'),'message',contact.message,errors.message) }}
+                                    <button type="submit" class="btn btn-success">{% trans %}Enviar{% endtrans %}</button>
+                                    </div>
+                                  </div>
+                                </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+<!-- Footer -->
+        <footer style="background: #4294a4; height: 50px;margin-top: 50px;" class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p style="padding-top: 10px;color: #FFF; text-align: center;">e-Makeup</p>
+                    <div class="pull-right" style="margin-top: -30px;">
+                        <a target="_blank" href="https://www.facebook.com/samara.cardoso.794"> <img src="/static/image/F_icon.svg.png" style="width: 20px; height: 20px;"> </a>
+                        <a target="_blank" href="https://plus.google.com/u/0/"> <img src="/static/image/Google_plus.svg.png" style="width: 20px; height: 20px;"> </a>
+                        <a target="_blank" href="https://twitter.com/samaracardoso27"> <img src="/static/image/twitter-logo-png-transparent-background.png" style="width: 20px; height: 20px;"> </a>
+                        <a target="_blank" href="https://br.linkedin.com/pub/samara-cardoso/8b/44a/b60"> <img src="/static/image/LinkedIn_logo_initials.png" style="width: 20px; height: 20px;"> </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+{% endblock %}

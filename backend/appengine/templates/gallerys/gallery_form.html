@@ -1,0 +1,28 @@
+{% extends 'gallerys/gallery_base.html' %}
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {% include 'base/sidebar.html'%}
+    </div>
+    {% set gallery=gallery or None %}
+    {% set errors=errors or None %}
+    <div class="col-md-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1 class="text-center">{% trans %}Fotos{% endtrans %}</h1>
+                    <hr>
+                        <form action="{{ save_path }}" method="post" role="form">
+                            {{ csrf_input() }}
+                            {{ form_input(_('Autor'),'name_author',gallery.name_author,errors.name_author) }}
+                            {{ form_input(_('Arquivo'),'file',gallery.file,errors.file) }}
+                            <button type="submit" class="btn btn-success">{% trans %}Salvar{% endtrans %}</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -10,3 +10,9 @@ from gaepermission.decorator import login_not_required
 def index():
     return TemplateResponse()
 
+def insertStudent():
+	return TemplateResponse(template_path="/student/insert_student.html")
+
+
+def searchStudent():
+	return TemplateResponse(template_path="/student/search_student.html")

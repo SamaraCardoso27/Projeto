@@ -1,0 +1,51 @@
+{% extends 'blogs/blog_base.html' %}
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {% include 'base/sidebar.html'%}
+    </div>
+    <div class="col-md-10">
+        {% set blog=blog or None %}
+        {% set errors=errors or None %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="text-center">{% trans %}Inseir Post{% endtrans %}</h2>
+                    <hr>
+                    <div class="col-md-8">     
+                        <form action="{{ save_path }}" method="post" role="form">
+                            {{ csrf_input() }}
+                                <div class="container">
+                                  <div class="row">
+                                    <div class="col-md-5">
+                                     {{ form_input(_('Título'),'title',blog.title,errors.title) }}
+                                    </div>
+                                    <div class="col-md-5">
+                                     {{ form_input(_('Assunto'),'subject',blog.subject,errors.subject) }}
+                                   </div>
+                                  </div>
+                                   <div class="row">
+                                    <div class="col-md-5">
+                                    {{ form_input(_('Autor'),'author',blog.author,errors.author) }}
+                                    </div>
+                                    <div class="col-md-5">
+                                     {{ form_input(_('Arquivo'),'file',blog.file,errors.file) }}
+                                   </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-10">
+                                    {{ form_input(_('Texto'),'text',blog.text,errors.text) }}
+                                    <button type="submit" class="btn btn-success">{% trans %}Postar{% endtrans %}</button>
+                                    </div>
+                                  </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

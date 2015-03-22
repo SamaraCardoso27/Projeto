@@ -676,7 +676,7 @@ h2.main-title:after, h2.main-title:before {
 }
 
 .inner-titlebg {
-    background: url(../images/inner-titlebg.png) bottom center;
+    background: url(/static/image/abstract_color04.jpg) bottom center;
     position: relative;
     z-index: 88;
     padding: 40px 0 12px 0;
@@ -960,6 +960,7 @@ h2.main-title:after, h2.main-title:before {
 }
 
 .hpost-img span {
+     position: relative
     border: 5px solid #FFFFFF;
     border-radius: 100%;
     bottom: -50px;
