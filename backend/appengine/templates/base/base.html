@@ -27,6 +27,8 @@
     <script src="/static/bootstrap/js/bootstrap.js"></script>
     <script src="/static/jquery/js/jquery-1.11.1.min.js"></script>
 
+    <script src="/static/jquery/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <style>
         .pad8 {
             margin: 8px 15px;
@@ -109,7 +111,7 @@
                     <li {{ 'class=active' if tab=='CONTACT' }}><a href="/contacts/new">{% trans %}Contato{% endtrans %}</a></li>
 
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
-                        <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a></li>
+                        <li {{ 'class=active' if tab=='ADMIN' }}><a href="/dashboard">{% trans %}Admin{% endtrans %}</a></li>
                     {% endif %}
                 {% endmacro %}
                 {% block tabs %}

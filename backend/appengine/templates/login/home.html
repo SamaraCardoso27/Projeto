@@ -10,7 +10,7 @@
     <div class="container">
         <br/>
 
-        <h1 class="text-center" style="margin-top:50px;">{% trans %}Login Options{% endtrans %}</h1>
+        <h1 class="text-center" style="margin-top:50px;">{% trans %}Login{% endtrans %}</h1>
         <br/>
         <br/>
         <br/>
@@ -35,15 +35,14 @@
             <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Google</h2><br/>
-                    <a href="{{ login_google_path }}" class="btn btn-social btn-google-plus"><i
-                            class="fa fa-google-plus"></i>Google</a>
+                    <a href="{{ login_google_path }}" class="btn btn-social btn-google-plus"><img src="/static/image/Google_plus.svg.png"></i>Google</a>
                 </div>
             </div>
             <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Facebook</h2><br/>
                     <button class="btn btn-social btn-facebook" onclick="fb_login();">
-                        <i class="fa fa-facebook"></i>
+                        <img src="/static/image/F_icon.svg.png">
                         Facebook
                     </button>
                     <form id="fbform" action="{{ login_facebook_path }}" method="post">
