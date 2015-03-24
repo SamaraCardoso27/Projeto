@@ -1,5 +1,19 @@
 {% extends 'blogs/blog_base.html' %}
 {% block body %}
+<style>
+.btn-success {
+  color: #ffffff;
+  background-color: #58b1c3;
+  border-color: #58b1c3;
+      background-image: linear-gradient(to bottom, rgba(88, 177, 195, 0.51) 0%, rgba(88, 177, 195, 0.42) 100%);
+}
+.btn-success:hover {
+  color: #ffffff;
+  background-color: #58b1c3;
+  border-color: #58b1c3;
+      background-image: linear-gradient(to bottom, #58b1c3 0%, #58b1c3 100%);
+}
+</style>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
@@ -8,7 +22,7 @@
     <div class="col-md-10">
         {% set blog=blog or None %}
         {% set errors=errors or None %}
-        <div class="container">
+        <div class="">
             <div class="row">
                 <div class="col-md-10">
                     <h2 class="text-center">{% trans %}Inseir Post{% endtrans %}</h2>
@@ -35,8 +49,9 @@
                                   </div>
                                   <div class="row">
                                     <div class="col-md-10">
-                                    {{ form_input(_('Texto'),'text',blog.text,errors.text) }}
-                                    <button type="submit" class="btn btn-success">{% trans %}Postar{% endtrans %}</button>
+                                      <b>Texto</b>
+                                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                                    <button type="submit" class="btn btn-success" style="margin-top:25px;">{% trans %}Postar{% endtrans %}</button>
                                     </div>
                                   </div>
                                 </div>

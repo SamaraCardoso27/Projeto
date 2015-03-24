@@ -1,0 +1,34 @@
+{% extends 'students/student_base.html' %}
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      {% include 'base/sidebar.html'%}
+    </div>
+    <div class="col-md-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>{% trans %}Buscar Alunos{% endtrans %} </h2>
+                    <hr/>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Ação<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Nome</a></li>
+                                    <li><a href="#">Curso</a></li>
+                                    <li><a href="#">Todos</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" aria-label="...">
+                         </div><!-- /input-group -->
+                        <button type="submit" class="btn btn-default">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+     </div>
+  </div>
+</div>
+{% endblock %}

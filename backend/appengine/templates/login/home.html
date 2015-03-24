@@ -1,12 +1,16 @@
 {% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css"/>
+    <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
+{% endblock %}
 {% block js %}
-    <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% endblock %}
 {% block body %}
     <div class="container">
         <br/>
 
-        <h1 class="text-center" style="margin-top:100px;">{% trans %}Login{% endtrans %}</h1>
+        <h1 class="text-center" style="margin-top:50px;">{% trans %}Login Options{% endtrans %}</h1>
         <br/>
         <br/>
         <br/>
@@ -31,15 +35,17 @@
             <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Google</h2><br/>
-                    <a href="{{ login_google_path }}"><img src="/static/image/Google_plus.svg.png" style="width: 35px;height: 35px;"> </a>
+                    <a href="{{ login_google_path }}" class="btn btn-social btn-google-plus"><i
+                            class="fa fa-google-plus"></i>Google</a>
                 </div>
             </div>
             <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Facebook</h2><br/>
-
-                        <a href="#" onclick="fb_login();"><img src="/static/image/F_icon.svg.png" style="width: 35px;height: 35px;"></a>
-
+                    <button class="btn btn-social btn-facebook" onclick="fb_login();">
+                        <i class="fa fa-facebook"></i>
+                        Facebook
+                    </button>
                     <form id="fbform" action="{{ login_facebook_path }}" method="post">
                         {{ csrf_input() }}
                         <input id="tokeninput" type="hidden" name="token"/>
@@ -50,7 +56,6 @@
     </div>
     {# see https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.0#}
     <script>
-
         var checkFacebookLogin = function () {
             var fbform = $('#fbform');
             var tokeninput = $('#tokeninput');
@@ -58,7 +63,6 @@
                 tokeninput.val(token);
                 fbform.submit();
             }
-
         }();
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
@@ -71,13 +75,11 @@
                 checkFacebookLogin(response.authResponse.accessToken);
             }
         }
-
         function fb_login() {
             FB.login(statusChangeCallback, {
                 scope: 'public_profile,email'
             });
         }
-
         // This function is called when someone finishes with the Login
         // Button.  See the onlogin handler attached to it in the sample
         // code below.
@@ -86,7 +88,6 @@
                 statusChangeCallback(response);
             });
         }
-
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '{{faceapp.app_id if faceapp}}',
@@ -96,7 +97,6 @@
                 version: 'v2.0' // use version 2.0
             });
         };
-
         // Load the SDK asynchronously
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -106,7 +106,5 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
-
     </script>
 {% endblock %}

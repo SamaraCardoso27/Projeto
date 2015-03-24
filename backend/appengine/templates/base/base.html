@@ -41,7 +41,7 @@
             height: 60px;
         }
         .navbar-nav>li>a {
-            color: #FFF;
+            color: #D4D4D4;
             font-family: 'Roboto',sans-serif;
             font-size: 14px;
             font-weight: 400;
@@ -49,6 +49,10 @@
             /* padding-top: 39px; */
             padding-left: 22px;
             padding-right: 22px;
+        }
+
+        .navbar-nav > li > a:hover {
+            color: #D4D4D4
         }
         .navbar-inverse .navbar-nav>li>a {
             color: #E0E0E0;
@@ -60,16 +64,21 @@
             height: 1px;
             }
         }
-        .btn-success {
-         color: #ffffff;
-         background-color: #58b1c3;
-         border-color: #58b1c3;
-        }
-        .btn-success:hover {
-            color: #ffffff;
-            background-color: #4294a4;
-            border-color: #4294a4;
-        }
+            .btn-success {
+              color: #ffffff;
+              background-color: #58b1c3;
+              border-color: #58b1c3;
+                  background-image: linear-gradient(to bottom, rgba(88, 177, 195, 0.51) 0%, rgba(88, 177, 195, 0.42) 100%);
+            }
+            .btn-success:hover {
+              color: #ffffff;
+              background-color: #58b1c3;
+              border-color: #58b1c3;
+                  background-image: linear-gradient(to bottom, #58b1c3 0%, #58b1c3 100%);
+            }
+            .dropdown-menu {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
     </style>
 
 
@@ -111,7 +120,7 @@
                 {% if _logged_user %}
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style="  margin-top: 15px;margin-right: 15px;background: transparent;border: transparent;color: rgba(255, 255, 255, 0.35);">
                             {{ _logged_user.name }}
                             <span class="caret"></span>
                         </button>
