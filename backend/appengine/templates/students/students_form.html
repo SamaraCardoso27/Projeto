@@ -1,0 +1,25 @@
+{% extends 'students/students_base.html' %}
+{% block body %}
+{% set student = student or None %}
+{% set erros = erros or None %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="well">
+                <h2> Formulário</h2>
+                <form action="{{ salvar_path }}" method="post">
+                    {{ csrf_input() }}
+                    {{ form_input('Name','name',student.name,erros.name) }}
+                    {{ form_input('Phone_number','phone_number',student.phone_number,erros.phone_number) }}
+                    {{ form_input('Bithday','bithday',student.bithday,erros.bithday) }}
+                    {{ form_input('Course','course',student.course,erros.course) }}
+                    {% if student.key  %}
+                    <input type="hidden" name="student_id" value="{{ student.key.id() }}" />
+                    {% endif %}
+                    <button class="btn btn-success" type="submit">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
