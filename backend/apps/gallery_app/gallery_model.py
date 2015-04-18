@@ -5,7 +5,7 @@ from gaegraph.model import Node
 from gaeforms.ndb import property
 
 
-class Gallery(Node):
+class Gallery(ndb.Model):
     name_author = ndb.StringProperty(required=True)
     file = ndb.StringProperty(required=True)
 

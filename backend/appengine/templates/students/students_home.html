@@ -1,32 +1,74 @@
 {% extends 'students/students_base.html' %}
 {% block body %}
+<div class="container-fluid" style="overflow: hidden;">
+  <div class="row">
+      <div class="col-md-2">
+        {% include 'base/sidebar.html'%}
+      </div>
     {% set student = student or None %}
-{% set erros = erros or None %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="well">
-                <h2> Formulário</h2>
+    {% set erros = erros or None %}
+      <div class="col-md-10" style="margin-top: 30px;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-10">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Inserir Aluno</button>
+                      <hr>
+                      <h4>Lista de Alunos</h4>
+                      <table class="table table-striped table-hover" style="margin-top: 30px;">
+                          <thead>
+                          <tr>
+                              <th/>
+                              <th>{% trans %}Nome{% endtrans %}</th>
+                              <th>{% trans %}Número de Telefone{% endtrans %}</th>
+                              <th>{% trans %}Data de Nacimento{% endtrans %}</th>
+                              <th>{% trans %}Curso{% endtrans %}</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {% for student in students %}
+                              <tr>
+                                  <td><a href="{{ student.edit_path }}" class="btn btn-success btn-sm"><i
+                                          class="glyphicon glyphicon-pencil"></i></a></td>
+                                  <td>{{ student.name }}</td>
+                                  <td>{{ student.phone_number }}</td>
+                                  <td>{{ student.bithday }}</td>
+                                  <td>{{ student.course }}</td>
+                                  <td>
+                                      <form action="{{ student.deletar_path }}" method="post">
+                                          {{ csrf_input() }}
+                                          <button class="btn btn-danger btn-sm"><i
+                                                    class="glyphicon glyphicon-trash"></i></button>
+                                      </form>
+                                  </td>
+                              </tr>
+                          {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Formulário</h4>
+            </div>
+            <div class="modal-body">
                 <form action="{{ salvar_path }}" method="post">
                     {{ csrf_input() }}
-                    {{ form_input('Name','name',student.name,erros.name) }}
-                    {{ form_input('Phone_number','phone_number',student.phone_number,erros.phone_number) }}
-                    {{ form_input('Bithday','bithday',student.bithday,erros.bithday) }}
-                    {{ form_input('Course','course',student.course,erros.course) }}
-                <button class="btn btn-success" type="submit">Salvar</button>
+                    {{ form_input('Nome','name',student.name,erros.name) }}
+                    {{ form_input('Telefone','phone_number',student.phone_number,erros.phone_number) }}
+                    {{ form_input('Data de Nascimento','bithday',student.bithday,erros.bithday) }}
+                    {{ form_input('Curso','course',student.course,erros.course) }}
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    </div>
                 </form>
-                <h3>Lista de Categorias</h3>
-                    <ul>
-                        {% for cat in students %}
-                        <li>{{ cat.name }}
-                            <a class="btn btn-success" href="{{ cat.edit_path }}"><i class="glyphicon glyphicon-pencil"></i></a>
-                            <form action="{{ cat.deletar_path }}" method="post">
-                                {{ csrf_input() }}
-                                <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
-                            </form>
-                        </li>
-                        {% endfor %}
-                    </ul>
             </div>
         </div>
     </div>

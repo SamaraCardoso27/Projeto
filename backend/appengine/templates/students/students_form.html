@@ -1,12 +1,30 @@
 {% extends 'students/students_base.html' %}
 {% block body %}
-{% set student = student or None %}
-{% set erros = erros or None %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="well">
-                <h2> Formulário</h2>
+<style>
+
+body {
+  background: rgba(0, 0, 0, 0.43);
+}
+
+</style>
+<div class="container-fluid" style="overflow: hidden;">
+  <div class="row">
+      <div class="col-md-2">
+        {% include 'base/sidebar.html'%}
+      </div>
+    {% set student = student or None %}
+    {% set erros = erros or None %}
+      <div class="col-md-10" style="margin-top: 30px;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-10">
+                      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="/students"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+                <h4 class="modal-title" id="exampleModalLabel">Editar Cadastro</h4>
+            </div>
+            <div class="modal-body">
                 <form action="{{ salvar_path }}" method="post">
                     {{ csrf_input() }}
                     {{ form_input('Name','name',student.name,erros.name) }}
@@ -16,10 +34,18 @@
                     {% if student.key  %}
                     <input type="hidden" name="student_id" value="{{ student.key.id() }}" />
                     {% endif %}
-                    <button class="btn btn-success" type="submit">Salvar</button>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
 {% endblock %}

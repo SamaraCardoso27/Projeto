@@ -19,6 +19,7 @@ def index(gallery_id):
 
 def save(gallery_id, **gallery_properties):
     cmd = gallery_facade.update_gallery_cmd(gallery_id, **gallery_properties)
+    cmd.put()
     try:
         cmd()
     except CommandExecutionException:
