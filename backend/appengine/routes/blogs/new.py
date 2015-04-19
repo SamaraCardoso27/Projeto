@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from blog.blog_model import Blog, BlogForm
 from config.template_middleware import TemplateResponse
-from gaebusiness.business import CommandExecutionException
-from tekton import router
-from gaecookie.decorator import no_csrf
-from blog_app import blog_facade
 from routes import blogs
 from tekton.gae.middleware.redirect import RedirectResponse
 
 
-@no_csrf
-def index():
-    return TemplateResponse({'save_path': router.to_path(save)}, 'blogs/blog_form.html')
-
-
-def save(**blog_properties):
-    cmd = blog_facade.save_blog_cmd(**blog_properties)
-    try:
-        cmd()
-    except CommandExecutionException:
-        context = {'errors': cmd.errors,
-                   'blog': blog_properties}
-
-        return TemplateResponse(context, 'blogs/blog_form.html')
-    return RedirectResponse(router.to_path(blogs))
-
+def salvar(**kwargs):
+    form =  BlogForm(**kwargs)
+    erros=form.validate()
+    if not erros:
+        propriedades=form.normalize()
+        blog = Blog(**propriedades)
+        blog.put()
+        return RedirectResponse(blogs)
+    else:
+        ctx = {'blog': kwargs, 'erros':erros}
+        return TemplateResponse(ctx, 'blogs/blogs_form.html')

@@ -1,0 +1,51 @@
+{% extends 'blogs/blogs_base.html' %}
+{% block body %}
+<style>
+
+body {
+  background: rgba(0, 0, 0, 0.43);
+}
+
+</style>
+<div class="container-fluid" style="overflow: hidden;">
+  <div class="row">
+      <div class="col-md-2">
+        {% include 'base/sidebar.html'%}
+      </div>
+    {% set blog = blog or None %}
+    {% set erros = erros or None %}
+      <div class="col-md-10" style="margin-top: 30px;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-10">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a href="/blogs"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+                                <h4 class="modal-title" id="exampleModalLabel">Editar Post</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ salvar_path }}" method="post">
+                                    {{ csrf_input() }}
+                                    {{ form_input('Autor','author',blog.author,erros.author) }}
+                                    {{ form_input('Assunto','subject',blog.subject,erros.subject) }}
+                                    {{ form_input('Título','title',blog.title,erros.title) }}
+                                    {{ form_input('Texto','text',blog.text,erros.text) }}
+                                    {% if blog.key  %}
+                                    <input type="hidden" name="blog_id" value="{{ blog.key.id() }}" />
+                                    {% endif %}
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" type="submit">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

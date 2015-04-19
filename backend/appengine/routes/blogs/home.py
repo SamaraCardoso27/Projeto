@@ -1,34 +1,32 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from google.appengine.ext import ndb
+from blog.blog_model import Blog
 from config.template_middleware import TemplateResponse
-from tekton import router
 from gaecookie.decorator import no_csrf
-from blog_app import blog_facade
-from routes.blogs import new, edit
+from routes.blogs import edit
+from routes.blogs.new import salvar
 from tekton.gae.middleware.redirect import RedirectResponse
+from tekton.router import to_path
 
 
 @no_csrf
 def index():
-    cmd = blog_facade.list_blogs_cmd()
-    blogs = cmd()
-    edit_path = router.to_path(edit)
-    delete_path = router.to_path(delete)
-    blog_form = blog_facade.blog_form()
-
-    def localize_blog(blog):
-        blog_dct = blog_form.fill_with_model(blog)
-        blog_dct['edit_path'] = router.to_path(edit_path, blog_dct['id'])
-        blog_dct['delete_path'] = router.to_path(delete_path, blog_dct['id'])
-        return blog_dct
-
-    localized_blogs = [localize_blog(blog) for blog in blogs]
-    context = {'blogs': localized_blogs,
-               'new_path': router.to_path(new)}
-    return TemplateResponse(context, 'blogs/blog_home.html')
+    query = Blog.query_order_by_author()
+    edit_path_base = to_path(edit)
+    deletar_path_base = to_path(deletar)
+    blogs = query.fetch()
+    for cat in blogs:
+        key = cat.key
+        key_id = key.id()
+        cat.edit_path = to_path(edit_path_base, key_id)
+        cat.deletar_path = to_path(deletar_path_base, key_id)
+    ctx = {'salvar_path': to_path(salvar),
+           'blogs': blogs}
+    return TemplateResponse(ctx, 'blogs/blogs_home.html')
 
 
-def delete(blog_id):
-    blog_facade.delete_blog_cmd(blog_id)()
-    return RedirectResponse(router.to_path(index))
-
+def deletar(blog_id):
+    key = ndb.Key(Blog, int(blog_id))
+    key.delete()
+    return RedirectResponse(index)
