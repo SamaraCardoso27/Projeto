@@ -1,28 +1,49 @@
 {% extends 'gallerys/gallery_base.html' %}
 {% block body %}
-<div class="container-fluid">
+<style>
+
+body {
+  background: rgba(0, 0, 0, 0.43);
+}
+
+</style>
+<div class="container-fluid" style="overflow: hidden;">
   <div class="row">
-    <div class="col-md-2">
-      {% include 'base/sidebar.html'%}
-    </div>
-    {% set gallery=gallery or None %}
-    {% set errors=errors or None %}
-    <div class="col-md-10">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-                    <h1 class="text-center">{% trans %}Inserir Fotos{% endtrans %}</h1>
-                    <hr>
-                        <form action="{{ save_path }}" method="post" role="form">
-                            {{ csrf_input() }}
-                            {{ form_input(_('Autor'),'name_author',gallery.name_author,errors.name_author) }}
-                            {{ form_input(_('Arquivo'),'file',gallery.file,errors.file) }}
-                            <button type="submit" class="btn btn-success">{% trans %}Salvar{% endtrans %}</button>
-                        </form>
-                </div>
+      <div class="col-md-2">
+        {% include 'base/sidebar.html'%}
+      </div>
+    {% set gallery = gallery or None %}
+    {% set erros = erros or None %}
+      <div class="col-md-10" style="margin-top: 30px;">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-10">
+                      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="/gallerys"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+                <h4 class="modal-title" id="exampleModalLabel">Editar Cadastro</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{ salvar_path }}" method="post">
+                    {{ csrf_input() }}
+                    {{ form_input('name_author','name_author',gallery.name_author,erros.name_author) }}
+                    {{ form_input('file','file',gallery.file,erros.file) }}
+                    {% if gallery.key  %}
+                    <input type="hidden" name="gallery_id" value="{{ gallery.key.id() }}" />
+                    {% endif %}
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
+
 {% endblock %}

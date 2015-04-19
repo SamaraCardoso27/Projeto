@@ -1,34 +1,32 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from google.appengine.ext import ndb
+from gallery.gallery_model import Gallery
 from config.template_middleware import TemplateResponse
-from tekton import router
 from gaecookie.decorator import no_csrf
-from gallery_app import gallery_facade
-from routes.gallerys import new, edit
+from routes.gallerys import edit
+from routes.gallerys.new import  salvar
 from tekton.gae.middleware.redirect import RedirectResponse
+from tekton.router import to_path
 
 
 @no_csrf
 def index():
-    cmd = gallery_facade.list_gallerys_cmd()
-    gallerys = cmd()
-    edit_path = router.to_path(edit)
-    delete_path = router.to_path(delete)
-    gallery_form = gallery_facade.gallery_form()
-
-    def localize_gallery(gallery):
-        gallery_dct = gallery_form.fill_with_model(gallery)
-        gallery_dct['edit_path'] = router.to_path(edit_path, gallery_dct['id'])
-        gallery_dct['delete_path'] = router.to_path(delete_path, gallery_dct['id'])
-        return gallery_dct
-
-    localized_gallerys = [localize_gallery(gallery) for gallery in gallerys]
-    context = {'gallerys': localized_gallerys,
-               'new_path': router.to_path(new)}
-    return TemplateResponse(context, 'gallerys/gallery_home.html')
+    query = Gallery.query_order_by_name()
+    edit_path_base = to_path(edit)
+    deletar_path_base = to_path(deletar)
+    gallerys = query.fetch()
+    for cat in gallerys:
+        key = cat.key
+        key_id = key.id()
+        cat.edit_path = to_path(edit_path_base, key_id)
+        cat.deletar_path = to_path(deletar_path_base, key_id)
+    ctx = {'salvar_path': to_path(salvar),
+           'gallerys': gallerys}
+    return TemplateResponse(ctx, 'gallerys/gallery_home.html')
 
 
-def delete(gallery_id):
-    gallery_facade.delete_gallery_cmd(gallery_id)()
-    return RedirectResponse(router.to_path(index))
-
+def deletar(student_id):
+    key = ndb.Key(Gallery, int(student_id))
+    key.delete()
+    return RedirectResponse(index)
